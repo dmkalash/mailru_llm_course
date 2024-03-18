@@ -1,7 +1,6 @@
 import telebot
 from telebot import types
-import random
-from random import choice
+
 
 from model_wrapper import ModelWrapper
 

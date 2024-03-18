@@ -1,5 +1,6 @@
-import pickle
+import traceback
 
+import gpt_lm
 import stat_lm
 
 class ModelWrapper:
@@ -21,9 +22,14 @@ class ModelWrapper:
             # ['StatLM', 'GPT', 'Llama']
             if model_name == 'StatLM':
                 self.model, self.generate_kwargs = stat_lm.construct_model()
+            elif model_name == 'GPT':
+                self.model, self.generate_kwargs = gpt_lm.construct_model()
             else:
                 return False, f"Модель {model_name} еще не поддерживается"
         except Exception as e:
+            print("TRACEBACK")
+            print(traceback.format_exc())
+            print("*" * 20)
             return False, f"Error while loading model {model_name}: {e}"
 
         if test_inference:
